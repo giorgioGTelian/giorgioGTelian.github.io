@@ -14,7 +14,8 @@ $users = array(
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Get the email and password from the request
-  $email = $_POST['email'];
+  // TODO prevent (XSS) attacks.use htmlspecialchars or htmlentities 
+  $email = $_POST['email']; 
   $password = $_POST['password'];
  } 
  // Check if the email and password match an accepted user
@@ -46,27 +47,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Set the option to verify the hostname
   curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
     
-      // Send the request and get the response
+    // Decode the response
+    $response = json_decode($response, true);
+
+//This will ensure that cURL is connecting to the intended website and not being redirected to a malicious site.
+
+
+    // Set the URL of the server
+    curl_setopt($ch, CURLOPT_URL, 'https://cloud.fatturapro.click/junior2023/login');
+
+    // Set the option to verify the hostname
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+
+/* Set other options as needed (HTTP method, data to send) */
+
+    // Send the request and get the response
     $response = curl_exec($ch);
 
     // Close the cURL session
     curl_close($ch);
 
-    // Decode the response
-    $response = json_decode($response, true);
     } else {
     echo'<p>Email or password are invalid</p>'; 
   
 }
  
- } 
+ 
     // Check if the login was successful
     if ($response['status'] === 0) {
       // Save the token in the session
       $_SESSION['token'] = $response['token'];
 
       // Redirect the user to the home page
-      header('Location: /home.php');
+      header('Location: /index.html');
       exit;
     } 
  
@@ -87,26 +100,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // The request failed, so show an error message
     echo '<p>Error connecting to the server</p>';
   }
-}
-
-//This will ensure that cURL is connecting to the intended website and not being redirected to a malicious site.
-
-// Initialize a cURL session
-$ch = curl_init();
-
-// Set the URL of the server
-curl_setopt($ch, CURLOPT_URL, 'https://cloud.fatturapro.click/junior2023/login');
-
-// Set the option to verify the hostname
-curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-
-/* Set other options as needed (HTTP method, data to send) */
-
-// Send the request and get the response
-$response = curl_exec($ch);
-
-// Close the cURL session
-curl_close($ch);
-
-
 ?>
