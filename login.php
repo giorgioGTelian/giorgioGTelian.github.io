@@ -4,12 +4,22 @@
 // Start a session to store the authentication token
 session_start();
 
+$users = array(
+  'test1@demotest.it' => '123',
+  'test2@demotest.it' => '456',
+  'test3@demotest.it' => '789',
+  'test4@demotest.it' => '135',
+  'test5@demotest.it' => '246'
+);
+
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Get the email and password from the request
   $email = $_POST['email'];
   $password = $_POST['password'];
-
+  
+ // Check if the email and password match an accepted user
+  if (isset($users[$email]) && $users[$email] === $password) {
   // Initialize a cURL session
   $ch = curl_init();
 
@@ -18,6 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // Set the HTTP method to POST
   curl_setopt($ch, CURLOPT_POST, true);
+    
+  // Set the email and password as POST data
+  curl_setopt($ch, CURLOPT_POSTFIELDS, "email=$email&password=$password");
+
+  // Set the response format to JSON
+  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
   // Set the data to be sent in the request
   curl_setopt($ch, CURLOPT_POSTFIELDS, [
@@ -27,12 +43,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // Set the option to receive the response as a string
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    
+  // Set the option to verify the hostname
+  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+    
+      // Send the request and get the response
+    $response = curl_exec($ch);
 
-  // Send the request and get the response
-  $response = curl_exec($ch);
+    // Close the cURL session
+    curl_close($ch);
 
-  // Close the cURL session
-  curl_close($ch);
+    // Decode the response
+    $response = json_decode($response, true);
+
+    // Check if the login was successful
+    if ($response['status'] === 0) {
+      // Save the token in the session
+      $_SESSION['token'] = $response['token'];
+
+      // Redirect the user to the home page
+      header('Location: /home.php');
+      exit;
+    } 
+ }
+    
 
   // Check if the request was successful
   if ($response !== false) {
