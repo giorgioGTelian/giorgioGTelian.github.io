@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Get the email and password from the request
   $email = $_POST['email'];
   $password = $_POST['password'];
-  
+ } 
  // Check if the email and password match an accepted user
   if (isset($users[$email]) && $users[$email] === $password) {
   // Initialize a cURL session
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Decode the response
     $response = json_decode($response, true);
-
+ } 
     // Check if the login was successful
     if ($response['status'] === 0) {
       // Save the token in the session
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       header('Location: /home.php');
       exit;
     } 
- }
+ 
     
 
   // Check if the request was successful
