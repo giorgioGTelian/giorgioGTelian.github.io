@@ -1,6 +1,5 @@
 <?php
 
-
 // Start a session to store the authentication token
 session_start();
 
@@ -19,15 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $password = $_POST['password'];
  } 
  // Check if the email and password match an accepted user
-  if (isset($users[$email]) && $users[$email] === $password) {
-  // Initialize a cURL session
+  if (array_key_exists($email, $users) && password_verify($password, $users[$email])) {
+     // Initialize a cURL session
   $ch = curl_init();
 
   // Set the URL of the server's authentication API
   curl_setopt($ch, CURLOPT_URL, 'https://cloud.fatturapro.click/junior2023/login');
 
   // Set the HTTP method to POST
-  curl_setopt($ch, CURLOPT_POST, true);
+  curl_setopt($ch, CURLOPT_POST, 1);
     
   // Set the email and password as POST data
   curl_setopt($ch, CURLOPT_POSTFIELDS, "email=$email&password=$password");
@@ -36,10 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
   // Set the data to be sent in the request
-  curl_setopt($ch, CURLOPT_POSTFIELDS, [
-    'email' => $email,
-    'password' => $password,
-  ]);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+  'email' => $email,
+  'password' => $password,
+]));
 
   // Set the option to receive the response as a string
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -55,6 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Decode the response
     $response = json_decode($response, true);
+    } else {
+    echo'<p>Email or password are invalid</p>'; 
+  
+}
+ 
  } 
     // Check if the login was successful
     if ($response['status'] === 0) {
