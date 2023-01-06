@@ -1,3 +1,27 @@
+function plotData(data) {
+  // Select the container element where the data will be plotted
+  var container = d3.select('#container');
+
+  // Append a new SVG element to the container
+  var svg = container.append('svg');
+
+  // Set the dimensions of the SVG element
+  svg.attr('width', 500)
+     .attr('height', 300);
+
+  // Select all circles in the SVG element and bind the data to them
+  var circles = svg.selectAll('circle')
+                   .data(data);
+
+  // Enter the data and append a new circle element for each data point
+  circles.enter().append('circle')
+    // Set the attributes of the circle elements
+    .attr('cx', function(d) { return d.x; })
+    .attr('cy', function(d) { return d.y; })
+    .attr('r', 5);
+}
+
+
 $(document).ready(function() {
   // Set the interval at which to fetch the data (in milliseconds)
   var interval = 5000;
