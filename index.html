@@ -7,11 +7,11 @@
 <body>
 <script>
     async function async() {
-        //const portfolioDeploymentUrl = 'https://portfolio.tomondre.com';
-       // const indexPageUrl = 'https://tomondre.github.io/html/Pages/index.html'
+        const portfolioDeploymentUrl = 'http://programmer.altervista.org/';
+       const indexPageUrl = 'https://github.com/giorgioGTelian/giorgioGTelian.github.io/blob/master/index.html'
 
         try {
-            let response = await fetch('https://is-ok.tomondre.com?url=https://portfolio.tomondre.com');
+            let response = await fetch('https://github.com/giorgioGTelian/giorgioGTelian.github.io/blob/master/index.html');
 
             if (response.status === 200) {
                 window.location.replace(portfolioDeploymentUrl);
