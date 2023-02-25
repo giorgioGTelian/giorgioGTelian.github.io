@@ -9,139 +9,199 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!--<base href="/">--><base href=".">
   <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;%F0%9F%A7%90&lt;/text&gt;&lt;/svg&gt;">
-<style id="smooth-scrollbar-style">
-[data-scrollbar] {
-  display: block;
-  position: relative;
-}
 
-.scroll-content {
-  -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
-}
-
-.scrollbar-track {
-  position: absolute;
-  opacity: 0;
-  z-index: 1;
-  background: rgba(222, 222, 222, .75);
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  -webkit-transition: opacity 0.5s 0.5s ease-out;
-          transition: opacity 0.5s 0.5s ease-out;
-}
-.scrollbar-track.show,
-.scrollbar-track:hover {
-  opacity: 1;
-  -webkit-transition-delay: 0s;
-          transition-delay: 0s;
-}
-
-.scrollbar-track-x {
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 8px;
-}
-.scrollbar-track-y {
-  top: 0;
-  right: 0;
-  width: 8px;
-  height: 100%;
-}
-.scrollbar-thumb {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  background: rgba(0, 0, 0, .5);
-  border-radius: 4px;
-}
-</style>
-    
     </head>
 <body>
-    <app-root ng-version="14.2.11">
-        <div class="art-app">
-          <div class="art-mobile-top-bar">
+  <!-- navbar header -->
+  <div class="nav-header">
+    <div class="nav-brand">
+      <img src="https://s3-us-west-2.amazonaws.com/parallax-theme/assets/bradlogo2.png">
+    </div>
+    <i class="fa fa-bars fa-3x"></i>
+    <div class="header-links">
+      <ul>
+        <li data-menuanchor="fourthPage"><a href="#contact">CONTACT</a></li>
+        <li data-menuanchor="thirdPage"><a href="#portfolio">PORTFOLIO</a></li>
+        <li data-menuanchor="secondPage"><a href="#about">ABOUT</a></li>
+      </ul>
+    </div>
+  </div>
+  <!-- end navbar header -->
 
-          </div>
-          <div class="art-app-wrapper">
-            <div class="art-app-container"><app-about-me><div class="art-info-bar"><div class="art-info-bar-frame"><div class="art-info-bar-header">
-                <a class="art-info-bar-btn"><i class="fa fa-ellipsis-v"></i></a></div><div class="art-header"><div class="art-avatar">
-                <a data-fancybox="avatar" href="insert face here" class="art-avatar-curtain"><img src="./Portfolio_files/Face.png" alt="avatar">
-                    <i class="fa fa-expand"></i></a><div class="art-lamp-light"><div class="art-available-lamp">
-                </div></div></div><h5 class="art-name mb-10"><a href="linktopage">GiorgioTassinari</a></h5>
-                <div class="art-sm-text">Software Developer <br>Software Engineering Student</div>
-                </div><div id="scrollbar2" class="art-scroll-frame" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;">
-                <div class="scroll-content"><div class="art-table p-15-15">
-                    <ul><li><h6>Location:</h6><span>Italy</span></li><li><h6>City:</h6><span>Bologna</span></li><li><h6>Age:</h6><span>32</span></li></ul>
-                    </div><div class="art-ls-divider"></div> 
-                </div>
-              </app-index>
-            <!---->
-            <app-footer>
-            <div class="container-fluid">
-                <footer>
-                    <div id="copy" class="art-copy">© 2023</div>
-                </footer>
-                </div>
-            </app-footer>
+  <!-- sidebar slider -->
+  <div class="nav-screen">
+    <i class="fa fa-times fa-3x"></i>
+    <div class="nav-container">
+      <div class="nav-links">
+        <ul id='myMenu'>
+          <li data-menuanchor="secondPage"><a href="#about">ABOUT</a></li>
+          <li data-menuanchor="thirdPage"><a href="#portfolio">PORTFOLIO</a></li>
+          <li data-menuanchor="fourthPage"><a href="#contact">CONTACT</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- end navbar slider -->
+
+  <!-- begin fullpage -->
+
+  <div id="fullpage">
+
+    <!-- begin section -->
+
+    <div class="section aboutme" data-anchor="aboutme">
+      <div class="opaque-bg animated fadeInDown">
+        <h1 style="color:white">BRAD<span style="color:#FF6363">/</span>ENGELHARDT</h1>
+        <p><span id="holder"></span><span class="blinking-cursor">|</span></p>
+      </div>
+      <i id="moveDown" class="fa fa-chevron-down fa-3x bounce"></i>
+    </div>
+    <!-- end section -->
+
+    <!-- begin section -->
+
+    <div class="section" data-anchor="skills">
+      <div class="content">
+        <h1 class="wow fadeInDown" data-wow-delay="0.2s">ABOUT ME</h1>
+        <p class="wow fadeInDown" data-wow-delay="0.2s">Hi, I'm Brad Engelhardt! I'm a Silicon Valley based Web Designer & Front-end Developer focused on creating clean, responsive web designs!</p>
+
+        <div class=" wow fadeInUp container-skillbar" data-wow-delay="0.2s">
+          <div class="skillbar clearfix " data-percent="90%">
+            <div class="skillbar-title" style="background: #DD1E2F;"><span>HTML5</span></div>
+            <div class="skillbar-bar" style="background: #DD1E2F;"></div>
+            <div class="skill-bar-percent">90%</div>
+          </div> <!-- End Skill Bar -->
+
+          <div class="skillbar clearfix " data-percent="80%">
+            <div class="skillbar-title" style="background: #EBB035;"><span>CSS3</span></div>
+            <div class="skillbar-bar" style="background: #EBB035;"></div>
+            <div class="skill-bar-percent">80%</div>
+          </div> <!-- End Skill Bar -->
+
+          <div class="skillbar clearfix " data-percent="75%">
+            <div class="skillbar-title" style="background: #218559;"><span>Photoshop</span></div>
+            <div class="skillbar-bar" style="background: #218559;"></div>
+            <div class="skill-bar-percent">75%</div>
+          </div> <!-- End Skill Bar -->
+
+          <div class="skillbar clearfix " data-percent="45%">
+            <div class="skillbar-title" style="background: #6840D4;"><span>Rails</span></div>
+            <div class="skillbar-bar" style="background: #6840D4;"></div>
+            <div class="skill-bar-percent">45%</div>
+          </div> <!-- End Skill Bar -->
+
+          <div class="skillbar clearfix " data-percent="30%">
+            <div class="skillbar-title" style="background: #06A2CB;"><span>jQuery</span></div>
+            <div class="skillbar-bar" style="background: #06A2CB;"></div>
+            <div class="skill-bar-percent">30%</div>
+          </div> <!-- End Skill Bar -->
+
+          <div class="skillbar clearfix " data-percent="20%">
+            <div class="skillbar-title" style="background: #AB4DD2;"><span>PHP</span></div>
+            <div class="skillbar-bar" style="background: #AB4DD2;"></div>
+            <div class="skill-bar-percent">20%</div>
+          </div> <!-- End Skill Bar -->
         </div>
-        <div class="scrollbar-track scrollbar-track-x" style="display: none;">
-            <div class="scrollbar-thumb scrollbar-thumb-x" style="width: 1070px; transform: translate3d(0px, 0px, 0px);">
-            </div>
-                </div>
-                <div class="scrollbar-track scrollbar-track-y" style="display: block;">
-                    <div class="scrollbar-thumb scrollbar-thumb-y" style="height: 780.238px; transform: translate3d(0px, 17.4406px, 0px); transform-origin: center bottom;">
-                    </div>
-                </div>
-                </div>
-                </div>
-              </div>
-              <app-navigation>
-                  <div class="art-menu-bar"><div class="art-menu-bar-frame">
-                      <div class="art-menu-bar-header">
-                          <a class="art-menu-bar-btn" style="cursor: pointer;">
-                              <span>
-                              </span>
-                          </a>
-                      </div>
-                      <div class="art-current-page">
-                      </div>
-                      <div class="art-scroll-frame">
-                          <nav id="swupMenu" style="cursor: pointer;" data-swup="1"><ul class="main-menu"><li routerlinkactive="current-menu-item" class="menu-item"><a>Home</a></li><li class="menu-item menu-item-has-children"><a>Portfolio</a><ul class="sub-menu"><li class="menu-item">
-                              <a> Lil Linko</a></li><li class="menu-item">
-                              <a> Raspberry Kubernetes Cluster</a></li><li class="menu-item">
-                              <a> eRoto Android APP</a></li><li class="menu-item">
-                              <a> Rabatoo Online Platform</a></li><li class="menu-item">
-                              <a> Eye Exercises</a></li><li class="menu-item">
-                              <a> Skrabmig e-commerce website</a></li>
-                              <li class="menu-item"><a> 3D Printer</a></li><!----></ul></li>
-                              <li class="menu-item"><a href="link" target="_blank">Deployments</a></li>
-                              <li class="menu-item"><a routerlinkactive="menu-item current-menu-item">History</a></li>
-                              <li class="menu-item"><a routerlinkactive="menu-item current-menu-item">Certifications</a></li>
-                              <li class="menu-item"><a routerlinkactive="menu-item current-menu-item">Contact</a></li></ul></nav>
-                          <ul class="art-language-change"><li class="art-active-lang"><a>EN</a></li></ul></div></div></div>
-                  
-                  <script type="javascript" src="js/main.js">
-                  </script></app-navigation></div></div>
-        <div class="art-preloader" style="opacity: 0; display: none;">
-            <div class="art-preloader-content" style="opacity: 1;">
-                <h4>Tomas Ondrejka</h4><div id="preloader" class="art-preloader-load" style="position: relative;">
-                <svg viewBox="0 0 100 1.7" preserveAspectRatio="none" style="width: 100%; height: 100%;">
-                    <path d="M 0,0.85 L 100,0.85" stroke="#eee" stroke-width="1.7" fill-opacity="0"></path>
-                    <path d="M 0,0.85 L 100,0.85" stroke="#555" stroke-width="1.7" fill-opacity="0" style="stroke-dasharray: 100, 100; stroke-dashoffset: 0;"></path></svg>
-                <div class="progressbar-text" style="position: absolute; left: 50%; top: 50%; padding: 0px; margin: 0px; transform: translate(-50%, -50%); color: rgb(85, 85, 85);">100 %
-                </div></div></div></div></div>
-    </app-root>
+      </div>
+    </div>
+    <!-- end section -->
 
-    
-    
-    
-    <style type="text/css">.txt-rotate > .wrap { border-right: 0.08em solid rgba(215,205,240,.6); padding-right: 5px }</style></body></html>
+    <!-- begin section -->
+
+    <div class="section" data-anchor="projects">
+      <div class="content-slide">
+        <div class="slide">
+          <h1 class="wow fadeInDown" data-wow-delay="0.2s">XFAIRE</h1>
+          <p class="wow fadeInDown" data-wow-delay="0.2s">Digital streaming service</p>
+          <img class="wow fadeInUp" data-wow-delay="0.2s" data-src="https://s3-us-west-2.amazonaws.com/bradengelhardt/assets/xfaire.jpg">
+        </div>
+        <div class="slide">
+          <h1>MACHETE ENERGY</h1>
+          <p>Energy drink website</p>
+          <img data-src="https://s3-us-west-2.amazonaws.com/bradengelhardt/assets/machete.jpg">
+        </div>
+        <div class="slide">
+          <h1>PORTFOLIO</h1>
+          <p>Mockup of a personal portfolio I was working on for a friend.</p>
+          <img data-src="https://s3-us-west-2.amazonaws.com/bradengelhardt/assets/cascioportfolio.jpg">
+        </div>
+        <div class="slide">
+          <h1>THATONEBLOG</h1>
+          <p>Minimalist blogging platform.</p>
+          <img data-src="https://s3-us-west-2.amazonaws.com/bradengelhardt/assets/blog.jpg">
+        </div>
+        <div class="slide">
+          <h1>PIXBORED</h1>
+          <p>Website for sharing images and gifs.</p>
+          <img data-src="https://s3-us-west-2.amazonaws.com/bradengelhardt/assets/pixbored.jpg">
+        </div>
+        <div class="slide">
+          <h1>PERSONAL WEBSITE</h1>
+          <p>Responsive vertical/horizontal header website theme.</p>
+          <img data-src="https://s3-us-west-2.amazonaws.com/bradengelhardt/assets/personalsite.jpg">
+        </div>
+      </div>
+    </div>
+    <!-- end section -->
+
+    <!-- begin section -->
+
+    <div class="section" data-anchor="contact">
+      <div class="content wow fadeInDown" data-wow-delay="0.2s">
+        <h1>CONTACT ME</h1>
+        <p>Whether you're interested in working with me or just want to say hello, I'd love to hear from you!</p>
+        <br>
+        <div class="contact-form">
+
+          <div id="form-messages"></div>
+          <form id="ajax-contact" method="post" role="form" action="contact.php" data-toggle="validator">
+            <div class="form-group has-feedback wow fadeInLeft" data-wow-delay="0.6s">
+              <input type="text" class="form-control" id="name" name="name" placeholder="NAME" data-error="Field can't be blank!" required>
+              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+              <div class="help-block with-errors"></div>
+            </div>
+
+            <div class="form-group has-feedback wow fadeInRight" data-wow-delay="0.8s">
+              <input type="email" class="form-control" id="email" name="email" placeholder="EMAIL" data-error="Field can't be blank!" required>
+              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+              <div class="help-block with-errors"></div>
+            </div>
+
+            <div class="form-group has-feedback wow fadeInLeft" data-wow-delay="1s">
+              <textarea data-minlength="10" class="form-control" id="message" name="message" placeholder="MESSAGE" data-error="Minimum of 10 characters" required></textarea>
+              <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+              <div class="help-block with-errors"></div>
+            </div>
+
+            <div class="hidden">
+              <input type="text" class="form-control" id="human" name="human" placeholder="">
+            </div>
+            <div class="wow fadeInUp" data-wow-delay="1s">
+              <button type="submit" id="submit" name="submit" class="btn btn-lg">SEND MESSAGE</button>
+            </div>
+          </form>
+          <br>
+        </div>
+      </div>
+    </div>
+    <!-- end section -->
+
+    <!-- begin section -->
+
+    <div class="section fp-auto-height">
+      <div class="footer">
+        <p>CONNECT WITH ME</p>
+        <div class="social-links">
+          <span><a href="https://www.linkedin.com/in/bradleyengelhardt" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a></span>
+          <span><a target="_blank" href="https://twitter.com/bradengelhardt" target="_blank"><i class="fa fa-twitter fa-2x"></i></a></span>
+          <span><a href="https://github.com/SquishyAndroid" target="_blank"><i class="fa fa-github fa-2x"></i></a></span>
+          <span><a href="https://codepen.io/SquishyAndroid/pens/public/"><i class="fa fa-codepen fa-2x"></i></a></span>
+        </div>
+      </div>
+    </div>
+    <!-- end section -->
+
+  </div>
+  <!-- end fullpage -->
 </body>
 </html>
