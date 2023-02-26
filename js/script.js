@@ -14,7 +14,7 @@ $(document).ready(function () {
   })(jQuery);
 
   // input text for typing animation
-  $("#holder").writeText("WEB DESIGNER + FRONT-END DEVELOPER");
+  $("#holder").writeText("GAME DEVELOPER + WEB DESIGNER");
 
   // initialize wow.js
   new WOW().init();
@@ -79,8 +79,8 @@ $(document).ready(function () {
     scrollBar: true,
     responsiveWidth: 400,
     navigation: true,
-    navigationTooltips: ["home", "about", "portfolio", "contact", "connect"],
-    anchors: ["home", "about", "portfolio", "contact", "connect"],
+    navigationTooltips: ["Home", "About", "Portfolio", "Contact", "Connect"],
+    anchors: ["Home", "About", "Portfolio", "Contact", "Connect"],
     menu: "#myMenu",
     fitToSection: false,
 
@@ -216,3 +216,4 @@ $(document).ready(function () {
     });
   });
 });
+
