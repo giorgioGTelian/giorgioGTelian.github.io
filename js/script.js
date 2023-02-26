@@ -1,219 +1,257 @@
-$(document).ready(function () {
-  // typing animation
-  (function ($) {
-    $.fn.writeText = function (content) {
-      var contentArray = content.split(""),
-        current = 0,
-        elem = this;
-      setInterval(function () {
-        if (current < contentArray.length) {
-          elem.text(elem.text() + contentArray[current++]);
-        }
-      }, 80);
-    };
-  })(jQuery);
+console.clear();
 
-  // input text for typing animation
-  $("#holder").writeText("GAME DEVELOPER + WEB DESIGNER");
+const { gsap, imagesLoaded } = window;
 
-  // initialize wow.js
-  new WOW().init();
+const buttons = {
+	prev: document.querySelector(".btn--left"),
+	next: document.querySelector(".btn--right"),
+};
+const cardsContainerEl = document.querySelector(".cards__wrapper");
+const appBgContainerEl = document.querySelector(".app__bg");
 
-  // Push the body and the nav over by 285px over
-  var main = function () {
-    $(".fa-bars").click(function () {
-      $(".nav-screen").animate(
-        {
-          right: "0px"
-        },
-        200
-      );
+const cardInfosContainerEl = document.querySelector(".info__wrapper");
 
-      $("body").animate(
-        {
-          right: "285px"
-        },
-        200
-      );
-    });
+buttons.next.addEventListener("click", () => swapCards("right"));
 
-    // Then push them back */
-    $(".fa-times").click(function () {
-      $(".nav-screen").animate(
-        {
-          right: "-285px"
-        },
-        200
-      );
+buttons.prev.addEventListener("click", () => swapCards("left"));
 
-      $("body").animate(
-        {
-          right: "0px"
-        },
-        200
-      );
-    });
+function swapCards(direction) {
+	const currentCardEl = cardsContainerEl.querySelector(".current--card");
+	const previousCardEl = cardsContainerEl.querySelector(".previous--card");
+	const nextCardEl = cardsContainerEl.querySelector(".next--card");
 
-    $(".nav-links a").click(function () {
-      $(".nav-screen").animate(
-        {
-          right: "-285px"
-        },
-        500
-      );
+	const currentBgImageEl = appBgContainerEl.querySelector(".current--image");
+	const previousBgImageEl = appBgContainerEl.querySelector(".previous--image");
+	const nextBgImageEl = appBgContainerEl.querySelector(".next--image");
 
-      $("body").animate(
-        {
-          right: "0px"
-        },
-        500
-      );
-    });
-  };
+	changeInfo(direction);
+	swapCardsClass();
 
-  $(document).ready(main);
+	removeCardEvents(currentCardEl);
 
-  // initiate full page scroll
+	function swapCardsClass() {
+		currentCardEl.classList.remove("current--card");
+		previousCardEl.classList.remove("previous--card");
+		nextCardEl.classList.remove("next--card");
 
-  $("#fullpage").fullpage({
-    scrollBar: true,
-    responsiveWidth: 400,
-    navigation: true,
-    navigationTooltips: ["Home", "About", "Portfolio", "Contact", "Connect"],
-    anchors: ["Home", "About", "Portfolio", "Contact", "Connect"],
-    menu: "#myMenu",
-    fitToSection: false,
+		currentBgImageEl.classList.remove("current--image");
+		previousBgImageEl.classList.remove("previous--image");
+		nextBgImageEl.classList.remove("next--image");
 
-    afterLoad: function (anchorLink, index) {
-      var loadedSection = $(this);
+		currentCardEl.style.zIndex = "50";
+		currentBgImageEl.style.zIndex = "-2";
 
-      //using index
-      if (index == 1) {
-        /* add opacity to arrow */
-        $(".fa-chevron-down").each(function () {
-          $(this).css("opacity", "1");
-        });
-        $(".header-links a").each(function () {
-          $(this).css("color", "white");
-        });
-        $(".header-links").css("background-color", "transparent");
-      } else if (index != 1) {
-        $(".header-links a").each(function () {
-          $(this).css("color", "black");
-        });
-        $(".header-links").css("background-color", "white");
-      }
+		if (direction === "right") {
+			previousCardEl.style.zIndex = "20";
+			nextCardEl.style.zIndex = "30";
 
-      //using index
-      if (index == 2) {
-        /* animate skill bars */
-        $(".skillbar").each(function () {
-          $(this)
-            .find(".skillbar-bar")
-            .animate(
-              {
-                width: $(this).attr("data-percent")
-              },
-              2500
-            );
-        });
-      }
-    }
-  });
+			nextBgImageEl.style.zIndex = "-1";
 
-  // move section down one
-  $(document).on("click", "#moveDown", function () {
-    $.fn.fullpage.moveSectionDown();
-  });
+			currentCardEl.classList.add("previous--card");
+			previousCardEl.classList.add("next--card");
+			nextCardEl.classList.add("current--card");
 
-  // fullpage.js link navigation
-  $(document).on("click", "#skills", function () {
-    $.fn.fullpage.moveTo(2);
-  });
+			currentBgImageEl.classList.add("previous--image");
+			previousBgImageEl.classList.add("next--image");
+			nextBgImageEl.classList.add("current--image");
+		} else if (direction === "left") {
+			previousCardEl.style.zIndex = "30";
+			nextCardEl.style.zIndex = "20";
 
-  $(document).on("click", "#projects", function () {
-    $.fn.fullpage.moveTo(3);
-  });
+			previousBgImageEl.style.zIndex = "-1";
 
-  $(document).on("click", "#contact", function () {
-    $.fn.fullpage.moveTo(4);
-  });
+			currentCardEl.classList.add("next--card");
+			previousCardEl.classList.add("current--card");
+			nextCardEl.classList.add("previous--card");
 
-  // smooth scrolling
-  $(function () {
-    $("a[href*=#]:not([href=#])").click(function () {
-      if (
-        location.pathname.replace(/^\//, "") ==
-          this.pathname.replace(/^\//, "") &&
-        location.hostname == this.hostname
-      ) {
-        var target = $(this.hash);
-        target = target.length
-          ? target
-          : $("[name=" + this.hash.slice(1) + "]");
-        if (target.length) {
-          $("html,body").animate(
-            {
-              scrollTop: target.offset().top
-            },
-            700
-          );
-          return false;
-        }
-      }
-    });
-  });
+			currentBgImageEl.classList.add("next--image");
+			previousBgImageEl.classList.add("current--image");
+			nextBgImageEl.classList.add("previous--image");
+		}
+	}
+}
 
-  //ajax form
-  $(function () {
-    // Get the form.
-    var form = $("#ajax-contact");
+function changeInfo(direction) {
+	let currentInfoEl = cardInfosContainerEl.querySelector(".current--info");
+	let previousInfoEl = cardInfosContainerEl.querySelector(".previous--info");
+	let nextInfoEl = cardInfosContainerEl.querySelector(".next--info");
 
-    // Get the messages div.
-    var formMessages = $("#form-messages");
+	gsap.timeline()
+		.to([buttons.prev, buttons.next], {
+		duration: 0.2,
+		opacity: 0.5,
+		pointerEvents: "none",
+	})
+		.to(
+		currentInfoEl.querySelectorAll(".text"),
+		{
+			duration: 0.4,
+			stagger: 0.1,
+			translateY: "-120px",
+			opacity: 0,
+		},
+		"-="
+	)
+		.call(() => {
+		swapInfosClass(direction);
+	})
+		.call(() => initCardEvents())
+		.fromTo(
+		direction === "right"
+		? nextInfoEl.querySelectorAll(".text")
+		: previousInfoEl.querySelectorAll(".text"),
+		{
+			opacity: 0,
+			translateY: "40px",
+		},
+		{
+			duration: 0.4,
+			stagger: 0.1,
+			translateY: "0px",
+			opacity: 1,
+		}
+	)
+		.to([buttons.prev, buttons.next], {
+		duration: 0.2,
+		opacity: 1,
+		pointerEvents: "all",
+	});
 
-    // Set up an event listener for the contact form.
-    $(form).submit(function (e) {
-      // Stop the browser from submitting the form.
-      e.preventDefault();
+	function swapInfosClass() {
+		currentInfoEl.classList.remove("current--info");
+		previousInfoEl.classList.remove("previous--info");
+		nextInfoEl.classList.remove("next--info");
 
-      // Serialize the form data.
-      var formData = $(form).serialize();
+		if (direction === "right") {
+			currentInfoEl.classList.add("previous--info");
+			nextInfoEl.classList.add("current--info");
+			previousInfoEl.classList.add("next--info");
+		} else if (direction === "left") {
+			currentInfoEl.classList.add("next--info");
+			nextInfoEl.classList.add("previous--info");
+			previousInfoEl.classList.add("current--info");
+		}
+	}
+}
 
-      // Submit the form using AJAX.
-      $.ajax({
-        type: "POST",
-        url: $(form).attr("action"),
-        data: formData
-      })
-        .done(function (response) {
-          // Make sure that the formMessages div has the 'success' class.
-          $(formMessages).removeClass("error");
-          $(formMessages).addClass("success");
+function updateCard(e) {
+	const card = e.currentTarget;
+	const box = card.getBoundingClientRect();
+	const centerPosition = {
+		x: box.left + box.width / 2,
+		y: box.top + box.height / 2,
+	};
+	let angle = Math.atan2(e.pageX - centerPosition.x, 0) * (35 / Math.PI);
+	gsap.set(card, {
+		"--current-card-rotation-offset": `${angle}deg`,
+	});
+	const currentInfoEl = cardInfosContainerEl.querySelector(".current--info");
+	gsap.set(currentInfoEl, {
+		rotateY: `${angle}deg`,
+	});
+}
 
-          // Set the message text.
-          $(formMessages).text(response);
+function resetCardTransforms(e) {
+	const card = e.currentTarget;
+	const currentInfoEl = cardInfosContainerEl.querySelector(".current--info");
+	gsap.set(card, {
+		"--current-card-rotation-offset": 0,
+	});
+	gsap.set(currentInfoEl, {
+		rotateY: 0,
+	});
+}
 
-          // Clear the form.
-          $("#name").val("");
-          $("#email").val("");
-          $("#message").val("");
-        })
-        .fail(function (data) {
-          // Make sure that the formMessages div has the 'error' class.
-          $(formMessages).removeClass("success");
-          $(formMessages).addClass("error");
+function initCardEvents() {
+	const currentCardEl = cardsContainerEl.querySelector(".current--card");
+	currentCardEl.addEventListener("pointermove", updateCard);
+	currentCardEl.addEventListener("pointerout", (e) => {
+		resetCardTransforms(e);
+	});
+}
 
-          // Set the message text.
-          if (data.responseText !== "") {
-            $(formMessages).text(data.responseText);
-          } else {
-            $(formMessages).text(
-              "Oops! An error occured and your message could not be sent."
-            );
-          }
-        });
-    });
-  });
-});
+initCardEvents();
+
+function removeCardEvents(card) {
+	card.removeEventListener("pointermove", updateCard);
+}
+
+function init() {
+
+	let tl = gsap.timeline();
+
+	tl.to(cardsContainerEl.children, {
+		delay: 0.15,
+		duration: 0.5,
+		stagger: {
+			ease: "power4.inOut",
+			from: "right",
+			amount: 0.1,
+		},
+		"--card-translateY-offset": "0%",
+	})
+		.to(cardInfosContainerEl.querySelector(".current--info").querySelectorAll(".text"), {
+		delay: 0.5,
+		duration: 0.4,
+		stagger: 0.1,
+		opacity: 1,
+		translateY: 0,
+	})
+		.to(
+		[buttons.prev, buttons.next],
+		{
+			duration: 0.4,
+			opacity: 1,
+			pointerEvents: "all",
+		},
+		"-=0.4"
+	);
+}
+
+const waitForImages = () => {
+	const images = [...document.querySelectorAll("img")];
+	const totalImages = images.length;
+	let loadedImages = 0;
+	const loaderEl = document.querySelector(".loader span");
+
+	gsap.set(cardsContainerEl.children, {
+		"--card-translateY-offset": "100vh",
+	});
+	gsap.set(cardInfosContainerEl.querySelector(".current--info").querySelectorAll(".text"), {
+		translateY: "40px",
+		opacity: 0,
+	});
+	gsap.set([buttons.prev, buttons.next], {
+		pointerEvents: "none",
+		opacity: "0",
+	});
+
+	images.forEach((image) => {
+		imagesLoaded(image, (instance) => {
+			if (instance.isComplete) {
+				loadedImages++;
+				let loadProgress = loadedImages / totalImages;
+
+				gsap.to(loaderEl, {
+					duration: 1,
+					scaleX: loadProgress,
+					backgroundColor: `hsl(${loadProgress * 120}, 100%, 50%`,
+				});
+
+				if (totalImages == loadedImages) {
+					gsap.timeline()
+						.to(".loading__wrapper", {
+						duration: 0.8,
+						opacity: 0,
+						pointerEvents: "none",
+					})
+						.call(() => init());
+				}
+			}
+		});
+	});
+};
+
+waitForImages();
+
 
